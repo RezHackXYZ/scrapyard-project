@@ -164,7 +164,9 @@
                     .forEach((img) => {
                         img.classList.remove("selected");
                     });
-                if (round > )
+                if (round >= dataOfimages.length) {
+                    window.location.href = '../rhythm/end.html'
+                }
             }
 
             again();
