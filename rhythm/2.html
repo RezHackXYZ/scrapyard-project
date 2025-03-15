@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Capcha 2</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        />
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap");
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: black;
+                font-family: "Roboto", sans-serif;
+                font-optical-sizing: auto;
+                font-style: normal;
+                font-variation-settings: "wdth" 100;
+                display: grid;
+                place-content: center;
+            }
+
+            #root {
+                background-color: white;
+                border-radius: 10px;
+                width: 66.66vh;
+            }
+
+            #top {
+                font-weight: 800;
+                background-color: #1873e9;
+                color: white;
+                padding: 20px;
+                margin: 10px;
+            }
+
+            #top > * {
+                margin: 0px;
+            }
+
+            hr {
+                border: 0;
+                border-top: 1px solid hsla(0, 0%, 0%, 0.261);
+            }
+
+            #verifiyBar {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+                margin: 10px;
+            }
+
+            #VerifyButton {
+                background-color: #1873e9;
+                border: none;
+                padding: 10px;
+                padding-left: 20px;
+                padding-right: 20px;
+                margin: 10px;
+                color: white;
+            }
+
+            .VerifyButtonNot {
+                opacity: 0.5;
+            }
+
+            .choseOneIMpImagee {
+                width: 30vh;
+                height: 30vh;
+                border: 3px solid black;
+                padding: 5px;
+                margin: 5px;
+                transition: transform 0.2s ease;
+            }
+
+            #yourwrongmsg {
+                color: red;
+                text-align: center;
+                display: none;
+            }
+
+            .selected {
+                border: 7px solid #1873e9;
+                transform: scale(0.9);
+                transition: transform 0.2s ease;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <div id="top">
+                <h2>To verify that you are a human</h2>
+                <h1>find the <span id="WhatToFind"></span></h1>
+                <h4>If you cant find it then SKILL ISSUE</h4>
+            </div>
+            <div>
+                <div style="display: flex; padding: 8px">
+                    <img
+                        id="img1"
+                        class="choseOneIMpImagee"
+                        onclick="clickedImage(1)"
+                    />
+                    <img
+                        id="img2"
+                        class="choseOneIMpImagee"
+                        onclick="clickedImage(2)"
+                    />
+                </div>
+                <p id="yourwrongmsg">Wrong Awnser, kindly try again</p>
+            </div>
+            <hr />
+            <div id="verifiyBar">
+                <div style="padding: 10px; margin: 10px">
+                    <span class="material-symbols-outlined">replay</span>
+                    <span class="material-symbols-outlined">headphones</span>
+                    <span class="material-symbols-outlined">info</span>
+                </div>
+                <button id="VerifyButton" class="VerifyButtonNot">
+                    Verify
+                </button>
+            </div>
+        </div>
+        <script>
+            dataOfimages = [
+                [
+                    "orrange",
+                    "https://hc-cdn.hel1.your-objectstorage.com/s/v3/f182f4886f5c3ef625cc6fa4e2695c87f7b0421f_image.png",
+                    "https://hc-cdn.hel1.your-objectstorage.com/s/v3/e0a09b9667644d783a6f0aa3e40fda0afe67d1cd_image.png",
+                ],
+                [
+                    "cat",
+                    "https://placekitten.com/300/300",
+                    "https://placedog.net/300/300",
+                ],
+                [
+                    "circle",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Graph-paper-circle.svg/300px-Graph-paper-circle.svg.png",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Square_with_corners.svg/300px-Square_with_corners.svg.png",
+                ],
+                [
+                    "tree",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Tree_silhouette.svg/300px-Tree_silhouette.svg.png",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Bush-silhouette.svg/300px-Bush-silhouette.svg.png",
+                ],
+            ];
+            let attempt = 0;
+            let selected;
+            let round = -1;
+            function again() {
+                round++;
+                document.getElementById("img1").src = dataOfimages[round][1];
+                document.getElementById("img2").src = dataOfimages[round][2];
+                document.getElementById("WhatToFind").innerText =
+                    dataOfimages[round][0];
+                attempt = 0;
+                let time = 0;
+                document
+                    .getElementById("VerifyButton")
+                    .classList.add("VerifyButtonNot");
+                document
+                    .querySelectorAll(".choseOneIMpImagee")
+                    .forEach((img) => {
+                        img.classList.remove("selected");
+                    });
+                if (round > )
+            }
+
+            again();
+
+            function clickedImage(i) {
+                document
+                    .getElementById("VerifyButton")
+                    .classList.remove("VerifyButtonNot");
+
+                document
+                    .querySelectorAll(".choseOneIMpImagee")
+                    .forEach((img) => {
+                        img.classList.remove("selected");
+                    });
+                document.getElementById("img" + i).classList.add("selected");
+
+                selected = i;
+                console.log("selected" + selected);
+            }
+
+            let correctone;
+            document
+                .getElementById("VerifyButton")
+                .addEventListener("click", () => {
+                    if (
+                        document
+                            .getElementById("img1")
+                            .classList.contains("selected")
+                    ) {
+                        document.getElementById("yourwrongmsg").style.display =
+                            "none";
+                    } else {
+                        document.getElementById("yourwrongmsg").style.display =
+                            "block";
+                    }
+
+                    if (attempt == 0) {
+                        correctone = selected == 1 ? 2 : 1;
+                        attempt++;
+                        console.log("correctone" + correctone);
+                        console.log("selected" + selected);
+                        console.log("attempt" + attempt);
+                        document.getElementById("yourwrongmsg").style.display =
+                            "block";
+                    } else if (selected == correctone) {
+                        document.getElementById("yourwrongmsg").style.display =
+                            "none";
+                        console.log("You are a human");
+
+                        again();
+                    } else {
+                        document.getElementById("yourwrongmsg").style.display =
+                            "block";
+                        console.log("You are a bot");
+                    }
+                });
+        </script>
+    </body>
+</html>

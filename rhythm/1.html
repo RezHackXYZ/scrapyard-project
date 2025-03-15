@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Capcha 1</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        />
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap");
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: black;
+                font-family: "Roboto", sans-serif;
+                font-optical-sizing: auto;
+                font-style: normal;
+                font-variation-settings: "wdth" 100;
+                display: grid;
+                place-content: center;
+            }
+
+            #root {
+                background-color: white;
+                border-radius: 10px;
+                width: 66.66vh;
+            }
+
+            #top {
+                font-weight: 800;
+                background-color: #1873e9;
+                color: white;
+                padding: 20px;
+                margin: 10px;
+            }
+
+            #top > * {
+                margin: 0px;
+            }
+
+            #capchaImageForTextTest {
+                padding: 10px;
+                margin: 10px;
+                width: 93.5%;
+                border: black 3px solid;
+            }
+
+            #capchaTextForTextTest {
+                padding: 10px;
+                margin: 10px;
+                width: 93.5%;
+                border: 0;
+                border-bottom: #1873e9 1.5px solid;
+                font-size: 1.5em;
+                font-weight: 800;
+                text-align: center;
+            }
+
+            #capchaTextForTextTest:focus {
+                outline: none;
+            }
+
+            hr {
+                border: 0;
+                border-top: 1px solid hsla(0, 0%, 0%, 0.261);
+            }
+
+            #verifiyBar {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+                margin: 10px;
+            }
+            #yourwrongmsg {
+                color: red;
+                text-align: center;
+                display: none;
+            }
+
+            #VerifyButton {
+                background-color: #1873e9;
+                border: none;
+                padding: 10px;
+                padding-left: 20px;
+                padding-right: 20px;
+                margin: 10px;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <div id="top">
+                <h2>To verify that you are a human</h2>
+                <h1>Please type the text given below</h1>
+                <h4>If you cant read then SKILL ISSUE</h4>
+            </div>
+            <img id="capchaImageForTextTest" src="" />
+            <input
+                type="text"
+                id="capchaTextForTextTest"
+                placeholder="Type the text here"
+            />
+            <p id="yourwrongmsg">Wrong Awnser, kindly try again</p>
+            <hr />
+            <div id="verifiyBar">
+                <div style="padding: 10px; margin: 10px">
+                    <span class="material-symbols-outlined">replay</span>
+                    <span class="material-symbols-outlined">headphones</span>
+                    <span class="material-symbols-outlined">info</span>
+                </div>
+                <button id="VerifyButton" onclick="verify()">Verify</button>
+            </div>
+        </div>
+        <script>
+            const dataOfimages = [
+                [
+                    "https://hc-cdn.hel1.your-objectstorage.com/s/v3/da68f32736b5927023ad02a0b403dd4d0a37dd38_image.png",
+                    "dont type",
+                ],
+                [
+                    "https://hc-cdn.hel1.your-objectstorage.com/s/v3/94948bb453800ecb55b0d114745fbbd0826bc6e1_image.png",
+                    "arch",
+                ],
+            ];
+
+            function random(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            document.getElementById("capchaImageForTextTest").src =
+                dataOfimages[random(0, dataOfimages.length - 1)][0];
+
+            function verify() {
+                document.getElementById("capchaTextForTextTest").value ===
+                dataOfimages.find(
+                    (element) =>
+                        element[0] ==
+                        document.getElementById("capchaImageForTextTest").src
+                )[1]
+                    ? (window.location.href = '../rhythm/2.html')
+                    : (document.getElementById("yourwrongmsg").style.display =
+                          "block");
+            }
+        </script>
+    </body>
+</html>
