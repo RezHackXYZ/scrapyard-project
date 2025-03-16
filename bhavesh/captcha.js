@@ -13,8 +13,8 @@ let count = 0;
 verificationButton.addEventListener("click", function (e) {
   count++;
   console.log(count);
-  if (count >= 9) {
-    window.location.href = "voicecaptcha.html";
+  if (count >= 3) {
+    window.location.href = "rotatingcaptcha.html";
   }
 });
 
