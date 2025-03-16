@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .main {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                height: 100vh;
+                background-color: #f1f1f1;
+            }
+            img {
+                width: 400px;
+                height: auto;
+            }
+            .voicemain {
+                position: absolute;
+                width: 400px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <h2
+                style="
+                    color: red;
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 18px;
+                "
+            >
+                We still think you are a bot. Solve this captcha
+            </h2>
+            <img src="Untitled-1.png" alt="" />
+            <div
+                class="voicemain"
+                style="
+                    margin: 0 auto;
+                    position: absolute;
+                    width: 300px;
+                    background-color: white;
+                    text-align: center;
+                "
+            >
+                <h3
+                    class="sentence"
+                    style="
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 16px;
+                        color: #333;
+                    "
+                ></h3>
+                <button
+                    onclick="startRecognition()"
+                    style="
+                        padding: 10px 20px;
+                        font-size: 16px;
+                        cursor: pointer;
+                        background-color: #007bff;
+                        color: white;
+                        border: none;
+                        border-radius: 5px;
+                        margin-top: 10px;
+                    "
+                >
+                    Start Voice Input
+                </button>
+                <h3
+                    class="remark"
+                    style="
+                        color: red;
+                        font-family: Arial, Helvetica, sans-serif;
+                        font-size: 16px;
+                        margin-top: 10px;
+                    "
+                ></h3>
+            </div>
+
+            <script>
+                let attempts = 0;
+                const sentences = [
+                    "'I just bought a property in egypt'",
+                    "'How are you?'",
+                    "'What is your name?'",
+                    "'Where do you live?'",
+                    "'What is your favorite color?'",
+                ];
+
+                function getRandomSentence() {
+                    return sentences[
+                        Math.floor(Math.random() * sentences.length)
+                    ];
+                }
+
+                function startRecognition() {
+                    const recognition = new (window.SpeechRecognition ||
+                        window.webkitSpeechRecognition)();
+                    recognition.lang = "en-US";
+                    recognition.interimResults = false;
+                    recognition.maxAlternatives = 1;
+
+                    recognition.onresult = function (event) {
+                        const sentence = event.results[0][0].transcript;
+                        console.log(sentence); // Log the recognized sentence instead of writing it to the DOM
+                        attempts++;
+                        document.querySelector(".remark").textContent =
+                            "Processing...";
+                        setTimeout(() => {
+                            if (attempts === 1) {
+                                document.querySelector(".remark").textContent =
+                                    "";
+                            } else if (attempts < 5) {
+                                document.querySelector(
+                                    ".sentence"
+                                ).textContent = getRandomSentence();
+                                document.querySelector(".remark").textContent =
+                                    "You sound like a robot";
+                                document.querySelector(
+                                    ".remark"
+                                ).style.animation = "vibrate 0.3s linear 3s";
+                            } else {
+                                document.querySelector(".remark").textContent =
+                                    "You sound like a human";
+                                document.querySelector(
+                                    ".remark"
+                                ).style.animation = "none";
+                                console.log("human");
+                                window.location.href = "rotatingcaptcha.html"; // Redirect to voicecaptcha.html
+                            }
+                        }, 2000);
+                    };
+
+                    recognition.start();
+                }
+
+                document.querySelector(".sentence").textContent =
+                    getRandomSentence();
+
+                // Add vibrate effect
+                const style = document.createElement("style");
+                style.innerHTML = `
+                    @keyframes vibrate {
+                        0% { transform: translate(0); }
+                        20% { transform: translate(-2px, 2px); }
+                        40% { transform: translate(-2px, -2px); }
+                        60% { transform: translate(2px, 2px); }
+                        80% { transform: translate(2px, -2px); }
+                        100% { transform: translate(0); }
+                    }
+                `;
+                document.head.appendChild(style);
+            </script>
+        </div>
+    </body>
+</html>
