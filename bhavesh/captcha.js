@@ -14,7 +14,7 @@ verificationButton.addEventListener("click", function (e) {
   count++;
   console.log(count);
   if (count >= 3) {
-    window.location.href = "rotatingcaptcha.html";
+    window.location.href = "../rhythm/1.html";
   }
 });
 
